@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require_relative 'product'
 
 
 class Adapter
@@ -22,7 +23,9 @@ class Adapter
 
   def title(obj)
     title_obj = obj.css('h2.zagolovki')
-    [title_obj.text, title_obj.children.first['href']]
+    Product.new(
+     title_obj.text, title_obj.children.first['href'], rating(obj)
+    )
   end
      
   def good_rate?(obj)

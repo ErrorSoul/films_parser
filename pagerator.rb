@@ -11,9 +11,15 @@ class Pagerator
   def to_enum
     @enumerator = Enumerator.new do |yielder|
       while @start <= @num
-        yielder << @page + @start.to_s
+        yielder << @page + @start.to_s + '/'
         @start  += 1
       end
+    end
+  end
+
+  def each
+    to_enum.each do |x|
+      yield x
     end
   end
 
