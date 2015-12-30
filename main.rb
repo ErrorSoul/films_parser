@@ -4,7 +4,7 @@ require_relative 'adapter'
 page_queue = Queue.new
 main_queue = Queue.new
 
-pagerator = Pagerator.new(47).to_enum
+pagerator = Pagerator.new(47)
 
 pagerator.each do |page|
   page_queue << page
