@@ -16,14 +16,15 @@ threads = 5.times.map do |n|
       while page = page_queue.pop(true)
         adapter = Adapter.new(page)
         adapter.all_posts
-        #puts adapter.films
         main_queue << adapter.films
       end
     rescue ThreadError
     end
   end
 end
+
 threads.each(&:join)
+
 thread = Thread.new do
   file = File.open('result.txt', 'wb')
   begin
