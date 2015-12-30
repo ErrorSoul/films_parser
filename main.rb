@@ -10,7 +10,7 @@ pagerator.each do |page|
   page_queue << page
 end
 
-threads = 5.times.map do |n|
+threads = 10.times.map do |n|
   Thread.new do
     begin
       while page = page_queue.pop(true)

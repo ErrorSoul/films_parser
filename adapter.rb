@@ -18,7 +18,7 @@ class Adapter
   end
 
   def rating(obj)
-    obj.css('li.current-rating').text.to_i
+    obj.css('li.current-rating').text.to_f
   end
 
   def title(obj)

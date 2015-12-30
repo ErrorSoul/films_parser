@@ -12,8 +12,8 @@ class Product
     text << "*" * 25
     text << "\n"
     text << @title + "\n"
+    text << "Rating: "
     text << @rating.to_s + "\n"
     text << @url + "\n"
-    text << "*" * 25 + "\n"
   end
 end
