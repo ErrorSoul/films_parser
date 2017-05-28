@@ -1,17 +1,16 @@
-
 class Pagerator
   attr_reader :num
-  
+
   def initialize(num)
     @start = 1
     @num = num
-    @page = "http://kinogo.co/filmy_2013/page/"
+    @page = "http://kinogo.club/filmy_2015/page/"
   end
 
   def to_enum
     @enumerator = Enumerator.new do |yielder|
       while @start <= @num
-        yielder << @page + @start.to_s + '/'
+        yielder << page_url
         @start  += 1
       end
     end
@@ -23,4 +22,9 @@ class Pagerator
     end
   end
 
+  private
+
+  def page_url
+    @page + @start.to_s + '/'
+  end
 end

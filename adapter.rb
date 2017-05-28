@@ -4,11 +4,11 @@ require_relative 'product'
 
 
 class Adapter
-  attr_reader :site_name, :data, :films
+  attr_reader :page_url, :data, :films
 
-  def initialize(site_name)
-    @site_name = site_name
-    @data = Nokogiri::HTML(open @site_name)
+  def initialize(page_url)
+    @page_url = page_url
+    @data = Nokogiri::HTML(open @page_url)
     @rate = 4
     @films = Array.new
   end
@@ -17,29 +17,36 @@ class Adapter
     @data.css(element)
   end
 
-  def rating(obj)
-    obj.css('li.current-rating').text.to_f
-  end
-
-  def title(obj)
-    title_obj = obj.css('h2.zagolovki')
-    Product.new(
-     title_obj.text, title_obj.children.first['href'], rating(obj)
-    )
-  end
-     
   def good_rate?(obj)
-    rating(obj) >= @rate
+    obj.rating >= @rate
   end
 
   def all_posts
    find_css('div.shortstory').each do |elem|
-     good_rate?(elem) ? save_film(elem) : next
+     product = get_product(elem)
+     #puts elem
+     puts product
+     good_rate?(product) ? save(product) : next
    end
   end
 
-  def save_film(elem)
-    @films.push title(elem)
+  def save(product)
+    @films.push product
   end
-    
+
+  private
+
+  def get_product(elem)
+    raw_product = elem.css('h2.zagolovki')
+    puts "raw_product is #{raw_product}"
+    rating = elem.css('li.current-rating').text.to_f
+    puts raw_product.text
+    puts raw_product
+    Product.new(
+     raw_product.text,
+     raw_product.children.first['href'],
+     rating
+    )
+  end
+
 end
