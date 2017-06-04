@@ -4,7 +4,6 @@ class Pagerator
   def initialize(num)
     @start = 1
     @num = num
-    @page = "http://kinogo.club/filmy_2015/page/"
   end
 
   def to_enum
@@ -24,7 +23,11 @@ class Pagerator
 
   private
 
+  def page
+    "http://kinogo.club/filmy_2015/page/"
+  end
+
   def page_url
-    @page + @start.to_s + '/'
+    page + @start.to_s + '/'
   end
 end

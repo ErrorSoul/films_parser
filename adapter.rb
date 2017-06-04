@@ -18,7 +18,7 @@ class Adapter
   end
 
   def good_rate?(obj)
-    obj.rating >= @rate
+    obj.rating >= rate
   end
 
   def all_posts
@@ -35,6 +35,10 @@ class Adapter
   end
 
   private
+
+  def rate
+    4
+  end
 
   def get_product(elem)
     raw_product = elem.css('h2.zagolovki')
