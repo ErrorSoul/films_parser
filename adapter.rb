@@ -9,7 +9,6 @@ class Adapter
   def initialize(page_url)
     @page_url = page_url
     @data = Nokogiri::HTML(open @page_url)
-    @rate = 4
     @films = Array.new
   end
 
